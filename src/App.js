@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Profile from "./components/Profile/Profile";
+import TodoList from "./components/TodoList/TodoList";
+import Profiles from "./components/Profiles/Profiles";
+
+import "./App.css";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("profile");
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav>
+        <button className={currentPage === "profile" ? "nav_button active" : "nav_button"} onClick={() => handlePageChange("profile")}>Мой профиль</button>
+        <button className={currentPage === "profiles" ? "nav_button active" : "nav_button"} onClick={() => handlePageChange("profiles")}>Профили</button>
+      </nav>
+      {currentPage === "profile" && <><Profile /><TodoList /></>}
+      {currentPage === "profiles" && <Profiles /> }
     </div>
   );
 }
